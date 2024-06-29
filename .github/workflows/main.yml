@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,12 +16,12 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '20'
+          node-version: '14'  # Adjust the Node.js version as per your project requirements
 
       - name: Install dependencies
         run: npm install
 
-      - name: Run build
+      - name: Build application
         run: npm run build
 
       - name: Deploy to EC2
@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/Nestjs_App
-            git pull origin main
-            npm install
-            npm run build
-            
+            git pull origin main  # Pull the latest changes from the main branch
+            npm install --production  # Install production dependencies only
+            pm2 restart Nestjs_App || pm2 start npm --name "Nestjs_App" -- start
+
