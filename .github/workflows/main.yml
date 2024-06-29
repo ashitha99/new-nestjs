@@ -31,8 +31,8 @@ jobs:
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu/Nestjs_App
-            git pull origin main  # Pull the latest changes from the main branch
+            cd /home/ubuntu/new-nestjs
+            git fetch origin main  # Fetch the latest changes from the main branch
+            git reset --hard origin/main  # Reset local changes to match the main branch
             npm install --production  # Install production dependencies only
-            pm2 restart Nestjs_App || pm2 start npm --name "Nestjs_App" -- start
-
+            pm2 restart new-nestjs || pm2 start npm --name "new-nestjs" -- start
