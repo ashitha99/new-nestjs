@@ -34,5 +34,5 @@ jobs:
             cd /home/ubuntu/Nestjs_App
             git fetch origin main  # Fetch the latest changes from the main branch
             git reset --hard origin/main  # Reset local changes to match the main branch
-            npm install --production  # Install production dependencies only
+            npm install
             pm2 restart Nestjs_App || pm2 start npm --name "Nestjs_App" -- start
