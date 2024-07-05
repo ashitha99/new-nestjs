@@ -32,7 +32,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/Nestjs_App
-            git fetch origin main  # Fetch the latest changes from the main branch
-            git reset --hard origin/main  # Reset local changes to match the main branch
+            git pull origin main  # Pull the latest changes from the main branch
             npm install
+            npm run build  # Build the application on the server
             pm2 restart Nestjs_App || pm2 start npm --name "Nestjs_App" -- start
